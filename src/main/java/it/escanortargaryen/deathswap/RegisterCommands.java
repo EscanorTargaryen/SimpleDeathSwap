@@ -7,9 +7,12 @@ import org.bukkit.entity.Player;
 
 import java.util.Iterator;
 
+/**
+ * Class to manage all the commands
+ */
 public class RegisterCommands {
 
-    RegisterCommands() {
+    public RegisterCommands() {
 
         CommandAPICommand start = new CommandAPICommand("start").withArguments(new PlayerArgument("opponent"))
                 .executesPlayer((sender, args) -> {
