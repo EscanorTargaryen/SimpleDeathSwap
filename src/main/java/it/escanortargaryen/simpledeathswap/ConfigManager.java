@@ -1,6 +1,5 @@
 package it.escanortargaryen.simpledeathswap;
 
-import lombok.Getter;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -12,12 +11,10 @@ public class ConfigManager {
     /**
      * The time of a round, before the swap
      */
-    @Getter
     private int roundTime;
     /**
      * The time you remain in creative
      */
-    @Getter
     private int creativeTime;
 
     /**
@@ -57,5 +54,13 @@ public class ConfigManager {
             throw new RuntimeException("The time you are in creative must be greater than 0 (depends on the total time of the round)");
         }
 
+    }
+
+    public int getCreativeTime() {
+        return creativeTime;
+    }
+
+    public int getRoundTime() {
+        return roundTime;
     }
 }

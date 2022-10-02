@@ -1,6 +1,5 @@
 package it.escanortargaryen.simpledeathswap;
 
-import lombok.Getter;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
@@ -51,7 +50,6 @@ public class Game implements Listener {
     /**
      * Whether the game is currently active
      */
-    @Getter
     private boolean inGame = true;
 
     /**
@@ -294,4 +292,7 @@ public class Game implements Listener {
         return p.equals(owner);
     }
 
+    public boolean isInGame() {
+        return inGame;
+    }
 }
