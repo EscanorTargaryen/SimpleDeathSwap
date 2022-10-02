@@ -15,17 +15,26 @@ public class SimpleDeathSwap extends JavaPlugin {
      */
     public static List<Game> GAMES = new LinkedList<>();
 
+    /**
+     * The config manager
+     */
     public static ConfigManager CONFIGMANAGER;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onLoad() {
 
-        CONFIGMANAGER=  new ConfigManager();
+        CONFIGMANAGER = new ConfigManager();
 
         CommandAPI.onLoad(new CommandAPIConfig().verboseOutput(true));
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onEnable() {
         CommandAPI.onEnable(this);
