@@ -10,6 +10,7 @@ import org.bukkit.GameRule;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -198,6 +199,8 @@ public class Game implements Listener {
 
         player1.getWorld().setGameRule(GameRule.DO_DAYLIGHT_CYCLE, daylight);
         MainClass.GAMES.remove(this);
+
+        HandlerList.unregisterAll(this);
 
     }
 
