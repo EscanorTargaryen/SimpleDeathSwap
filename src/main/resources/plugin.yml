@@ -1,0 +1,25 @@
+main: it.escanortargaryen.deathswap.MainClass
+
+name: ${project.name}
+description: A plugin for a game called Death Swap
+version: ${project.version}
+author: [ EscanorTargaryen ]
+
+api-version: 1.13
+
+
+commands:
+  deathswap:
+    description: command to start a game
+    permission: deathswap.gamestart
+  stopgame:
+    description: command to stop a game
+    permission: deathswap.stopgame
+
+permissions:
+  deathswap.gamestart:
+    default: op
+    description: permission to start a game
+  deathswap.stopgame:
+    default: true
+    description: permission to stop a game. Only the owner can disband the game
