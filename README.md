@@ -16,4 +16,4 @@ This project is licensed under the [GNU Lesser General Public License v3.0 or la
 
 SimpleDeathSwap has been made by [EscanorTargaryen](https://github.com/EscanorTargaryen).  
 The plugin use the following library:
-* [CommandAPI](https://github.com/JorelAli/CommandAPI) (released under MIT license) to add commands to the plugin version of the API
+* [CommandAPI](https://github.com/JorelAli/CommandAPI) (released under MIT license) to add commands to the plugin
