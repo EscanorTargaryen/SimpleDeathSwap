@@ -47,7 +47,7 @@ public class ConfigManager {
         creativeTime = config.getInt("creative-time");
         if (creativeTime > (roundTime - 30 - 50)) {
 
-            throw new RuntimeException("The time you are in creative must be less than" + (roundTime - 30 - 50) + " (depends on the total time of the round)");
+            throw new RuntimeException("The time you are in creative must be less than " + (roundTime - 30 - 50) + " (depends on the total time of the round)");
         }
         if (creativeTime < 1) {
 
