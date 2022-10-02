@@ -1,0 +1,10 @@
+# SimpleDeathSwap config
+#
+
+# Total time of a round.
+# A round consists of an initial 50-second wait, then of the time when players are in creative,
+# return to survival, and finally switch positions.
+round-time: 300
+
+# Time when players are in creative
+creative-time: 10

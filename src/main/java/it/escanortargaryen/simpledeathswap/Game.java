@@ -41,12 +41,12 @@ public class Game implements Listener {
     /**
      * The time of a round
      */
-    private final int time = 300;
+    private final int time = SimpleDeathSwap.CONFIGMANAGER.getRoundTime();
 
     /**
      * Time remains before the player swap
      */
-    private int timeToSwap = 300;
+    private int timeToSwap = SimpleDeathSwap.CONFIGMANAGER.getRoundTime();
 
     /**
      * Whether the game is currently active
@@ -64,14 +64,14 @@ public class Game implements Listener {
     /**
      * Create a new Game
      *
-     * @param owner The owner of the game
+     * @param ow The owner of the game
      * @param p2 The second player of the game
      */
-    public Game(@NotNull Player owner, @NotNull Player p2) {
+    public Game(@NotNull Player ow, @NotNull Player p2) {
 
         Bukkit.getPluginManager().registerEvents(this, SimpleDeathSwap.INSTANCE);
-
-        daylight_cicle = owner.getWorld().getGameRuleValue(GameRule.DO_DAYLIGHT_CYCLE);
+        owner = ow;
+        daylight_cicle = Boolean.TRUE.equals(owner.getWorld().getGameRuleValue(GameRule.DO_DAYLIGHT_CYCLE));
 
         if (daylight_cicle) {
             owner.getWorld().setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
@@ -79,21 +79,20 @@ public class Game implements Listener {
 
         }
 
-        this.owner = owner;
         player2 = p2;
-        this.owner.setGameMode(GameMode.SURVIVAL);
+        owner.setGameMode(GameMode.SURVIVAL);
         player2.setGameMode(GameMode.SURVIVAL);
 
-        this.owner.sendMessage(ChatColor.GOLD + "You started a game of SimpleDeathSwap with " + player2.getName());
+        owner.sendMessage(ChatColor.GOLD + "You started a game of SimpleDeathSwap with " + player2.getName());
         player2.sendMessage(ChatColor.GOLD + "You started a game of SimpleDeathSwap with " + this.owner.getName());
 
-        this.owner.getInventory().clear();
+        owner.getInventory().clear();
         player2.getInventory().clear();
-        this.owner.getInventory().setArmorContents(null);
+        owner.getInventory().setArmorContents(null);
         player2.getInventory().setArmorContents(null);
-        this.owner.getInventory().setItemInMainHand(null);
+        owner.getInventory().setItemInMainHand(null);
         player2.getInventory().setItemInMainHand(null);
-        this.owner.getInventory().setItemInOffHand(null);
+        owner.getInventory().setItemInOffHand(null);
         player2.getInventory().setItemInOffHand(null);
 
         timer = new BukkitRunnable() {
@@ -106,38 +105,36 @@ public class Game implements Listener {
 
                 if (p1 < 10) {
 
-                    Game.this.owner.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText((p3 + ":0" + p1)));
+                    owner.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText((p3 + ":0" + p1)));
                     player2.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText((p3 + ":0" + p1)));
 
                 } else {
 
-                    Game.this.owner.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText((p3 + ":" + p1)));
+                    owner.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText((p3 + ":" + p1)));
                     player2.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText((p3 + ":" + p1)));
+                }
+
+                if (timeToSwap == time - 50) {
+
+                    owner.sendMessage(ChatColor.GOLD + "You are now in Creative");
+                    player2.sendMessage(ChatColor.GOLD + "You are now in Creative");
+                    owner.setGameMode(GameMode.CREATIVE);
+                    player2.setGameMode(GameMode.CREATIVE);
+                }
+
+                if (timeToSwap == time - 50 - SimpleDeathSwap.CONFIGMANAGER.getCreativeTime()) {
+
+                    owner.sendMessage(ChatColor.GOLD + "You are now in Creative");
+                    player2.sendMessage(ChatColor.GOLD + "You are now in Creative");
+                    owner.setGameMode(GameMode.CREATIVE);
+                    player2.setGameMode(GameMode.CREATIVE);
                 }
 
                 switch (timeToSwap) {
 
-                    case 240: {
-                        Game.this.owner.sendMessage(ChatColor.GOLD + "You are now in Creative");
-                        player2.sendMessage(ChatColor.GOLD + "You are now in Creative");
-                        Game.this.owner.setGameMode(GameMode.CREATIVE);
-                        player2.setGameMode(GameMode.CREATIVE);
-
-                        break;
-                    }
-
-                    case 230: {
-
-                        Game.this.owner.sendMessage(ChatColor.YELLOW + "You are now in Survival");
-                        player2.sendMessage(ChatColor.YELLOW + "You are now in Survival");
-                        Game.this.owner.setGameMode(GameMode.SURVIVAL);
-                        player2.setGameMode(GameMode.SURVIVAL);
-
-                        break;
-                    }
                     case 30: {
 
-                        Game.this.owner.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "30 seconds remain");
+                        owner.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "30 seconds remain");
                         player2.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "30 seconds remain");
                         break;
 
@@ -145,10 +142,10 @@ public class Game implements Listener {
 
                     case 0: {
                         timeToSwap = time;
-                        Location l = Game.this.owner.getLocation();
-                        Game.this.owner.teleport(player2);
+                        Location l = owner.getLocation();
+                        owner.teleport(player2);
                         player2.teleport(l);
-                        Game.this.owner.sendMessage(ChatColor.GREEN + "Swap!");
+                        owner.sendMessage(ChatColor.GREEN + "Swap!");
                         player2.sendMessage(ChatColor.GREEN + "Swap!");
 
                         break;
@@ -156,7 +153,7 @@ public class Game implements Listener {
 
                     case 1: {
 
-                        Game.this.owner.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "1 second remain");
+                        owner.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "1 second remain");
                         player2.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "1 second remain");
 
                         break;
@@ -170,7 +167,7 @@ public class Game implements Listener {
                     case 8:
                     case 9:
                     case 10: {
-                        Game.this.owner.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + timeToSwap + " seconds remain");
+                        owner.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + timeToSwap + " seconds remain");
                         player2.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + timeToSwap + " seconds remain");
 
                         break;
