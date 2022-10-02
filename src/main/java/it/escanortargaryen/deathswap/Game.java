@@ -1,11 +1,13 @@
 package it.escanortargaryen.deathswap;
 
 import lombok.Getter;
-import net.minecraft.server.v1_16_R2.ChatMessageType;
-import net.minecraft.server.v1_16_R2.IChatBaseComponent;
-import net.minecraft.server.v1_16_R2.PacketPlayOutChat;
-import org.bukkit.*;
-import org.bukkit.craftbukkit.v1_16_R2.entity.CraftPlayer;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
+import org.bukkit.GameRule;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -53,6 +55,8 @@ public class Game implements Listener {
         player2.getInventory().setArmorContents(null);
         player1.getInventory().setItemInMainHand(null);
         player2.getInventory().setItemInMainHand(null);
+        player1.getInventory().setItemInOffHand(null);
+        player2.getInventory().setItemInOffHand(null);
 
         timer = new BukkitRunnable() {
 
@@ -61,26 +65,17 @@ public class Game implements Listener {
 
                 int p1 = timeToSwap % 60;
                 int p3 = (timeToSwap / 60) % 60;
-                PacketPlayOutChat packet;
+
                 if (p1 < 10) {
 
-                    packet = new PacketPlayOutChat(IChatBaseComponent.ChatSerializer.a("{\"text\": \"" + (p3 + ":0" + p1) + "\"}"),
-                            ChatMessageType.GAME_INFO, player1.getUniqueId());
-
-                    ((CraftPlayer) player1).getHandle().playerConnection.sendPacket(packet);
-                    packet = new PacketPlayOutChat(IChatBaseComponent.ChatSerializer.a("{\"text\": \"" + (p3 + ":0" + p1) + "\"}"),
-                            ChatMessageType.GAME_INFO, player2.getUniqueId());
+                    player1.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText((p3 + ":0" + p1)));
+                    player2.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText((p3 + ":0" + p1)));
 
                 } else {
-                    packet = new PacketPlayOutChat(IChatBaseComponent.ChatSerializer.a("{\"text\": \"" + (p3 + ":" + p1) + "\"}"),
-                            ChatMessageType.GAME_INFO, player1.getUniqueId());
 
-                    ((CraftPlayer) player1).getHandle().playerConnection.sendPacket(packet);
-                    packet = new PacketPlayOutChat(IChatBaseComponent.ChatSerializer.a("{\"text\": \"" + (p3 + ":" + p1) + "\"}"),
-                            ChatMessageType.GAME_INFO, player2.getUniqueId());
-
+                    player1.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText((p3 + ":" + p1)));
+                    player2.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText((p3 + ":" + p1)));
                 }
-                ((CraftPlayer) player2).getHandle().playerConnection.sendPacket(packet);
 
                 switch (timeToSwap) {
 
