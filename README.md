@@ -4,7 +4,7 @@
 
 Famous game where 2 players challenge each other until one of them dies. The game is very simple: the two players will have to try hard to endanger their opponent, even using creative for a small period of time, and when the time runs out, death swap!
 
-**Spigot Page:** <https://www.spigotmc.org/resources/????/>  
+**Spigot Page:** <https://www.spigotmc.org/resources/105595>  
 **Discord Server:** <https://discord.gg/KRS7dSU6tR>  
 
 
