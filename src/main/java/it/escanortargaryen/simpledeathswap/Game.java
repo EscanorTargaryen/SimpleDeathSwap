@@ -84,8 +84,8 @@ public class Game implements Listener {
         owner.sendMessage(ChatColor.GOLD + "You started a game of SimpleDeathSwap with " + player2.getName());
         player2.sendMessage(ChatColor.GOLD + "You started a game of SimpleDeathSwap with " + this.owner.getName());
 
-        int p1 = timeToSwap % 60;
-        int p3 = (timeToSwap / 60) % 60;
+        int p1 = (time - 50) % 60;
+        int p3 = ((time - 50) / 60) % 60;
         String creativePeriod;
         if (p1 < 10) {
 
@@ -96,8 +96,8 @@ public class Game implements Listener {
             creativePeriod = p3 + ":" + p1;
         }
 
-        owner.sendMessage(ChatColor.GOLD + "The creative period will start at " + creativePeriod);
-        player2.sendMessage(ChatColor.GOLD + "The creative period will start at " + creativePeriod);
+        owner.sendMessage(ChatColor.YELLOW + "The creative period will start at " + creativePeriod);
+        player2.sendMessage(ChatColor.YELLOW + "The creative period will start at " + creativePeriod);
 
         owner.getInventory().clear();
         player2.getInventory().clear();
@@ -213,10 +213,20 @@ public class Game implements Listener {
         owner.sendMessage(ChatColor.RED + "The Game has been stopped");
         player2.sendMessage(ChatColor.RED + "The Game has been stopped");
 
-        inGame = false;
-        timer.cancel();
-        owner.getWorld().setGameRule(GameRule.DO_DAYLIGHT_CYCLE, daylight_cicle);
+        finish();
+    }
 
+    private void finish() {
+
+        inGame = false;
+        if (timer != null) {
+
+            timer.cancel();
+
+        }
+        owner.getWorld().setGameRule(GameRule.DO_DAYLIGHT_CYCLE, daylight_cicle);
+        HandlerList.unregisterAll(this);
+        SimpleDeathSwap.GAMES.remove(this);
     }
 
     /**
@@ -227,11 +237,6 @@ public class Game implements Listener {
      */
     private void died(@NotNull Player player) {
         if (!isInGame()) return;
-        if (timer != null) {
-
-            timer.cancel();
-
-        }
 
         new BukkitRunnable() {
 
@@ -254,12 +259,7 @@ public class Game implements Listener {
             }
         }.runTaskLater(SimpleDeathSwap.INSTANCE, 10);
 
-        inGame = false;
-
-        owner.getWorld().setGameRule(GameRule.DO_DAYLIGHT_CYCLE, daylight_cicle);
-        SimpleDeathSwap.GAMES.remove(this);
-
-        HandlerList.unregisterAll(this);
+        finish();
 
     }
 
