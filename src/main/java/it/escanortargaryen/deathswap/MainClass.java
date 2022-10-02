@@ -1,5 +1,8 @@
 package it.escanortargaryen.deathswap;
 
+import dev.jorel.commandapi.CommandAPI;
+import dev.jorel.commandapi.CommandAPICommand;
+import dev.jorel.commandapi.CommandAPIConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -14,22 +17,19 @@ public class MainClass extends JavaPlugin {
     public static List<Game> GAMES = new LinkedList<>();
 
     @Override
-    public void onEnable() {
+    public void onLoad() {
+        CommandAPI.onLoad(new CommandAPIConfig().verboseOutput(true));
 
-        INSTANCE = this;
-        @Nullable PluginCommand i = Bukkit.getPluginCommand("deathswap");
-        if (i != null) {
-
-            i.setExecutor(new StartCommand());
-
-        }
-
-        i = Bukkit.getPluginCommand("stopgame");
-        if (i != null) {
-
-            i.setExecutor(new DisbandGameCommand());
-
-        }
 
     }
+
+    @Override
+    public void onEnable() {
+        CommandAPI.onEnable(this);
+        INSTANCE = this;
+
+        new RegisterCommands();
+
+    }
+
 }

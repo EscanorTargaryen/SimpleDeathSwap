@@ -7,16 +7,10 @@ author: [ EscanorTargaryen ]
 
 api-version: 1.13
 
-
-commands:
-  deathswap:
-    description: command to start a game
-    permission: deathswap.gamestart
-  stopgame:
-    description: command to stop a game
-    permission: deathswap.stopgame
-
 permissions:
+  deathswap:
+    default: true
+    description: permission to use /deathswap
   deathswap.gamestart:
     default: op
     description: permission to start a game
