@@ -1,4 +1,4 @@
-package it.escanortargaryen.deathswap;
+package it.escanortargaryen.simpledeathswap;
 
 import lombok.Getter;
 import net.md_5.bungee.api.ChatMessageType;
@@ -69,7 +69,7 @@ public class Game implements Listener {
      */
     public Game(@NotNull Player owner, @NotNull Player p2) {
 
-        Bukkit.getPluginManager().registerEvents(this, MainClass.INSTANCE);
+        Bukkit.getPluginManager().registerEvents(this, SimpleDeathSwap.INSTANCE);
 
         daylight_cicle = owner.getWorld().getGameRuleValue(GameRule.DO_DAYLIGHT_CYCLE);
 
@@ -84,8 +84,8 @@ public class Game implements Listener {
         this.owner.setGameMode(GameMode.SURVIVAL);
         player2.setGameMode(GameMode.SURVIVAL);
 
-        this.owner.sendMessage(ChatColor.GOLD + "You started a game of DeathSwap with " + player2.getName());
-        player2.sendMessage(ChatColor.GOLD + "You started a game of DeathSwap with " + this.owner.getName());
+        this.owner.sendMessage(ChatColor.GOLD + "You started a game of SimpleDeathSwap with " + player2.getName());
+        player2.sendMessage(ChatColor.GOLD + "You started a game of SimpleDeathSwap with " + this.owner.getName());
 
         this.owner.getInventory().clear();
         player2.getInventory().clear();
@@ -180,7 +180,7 @@ public class Game implements Listener {
 
                 timeToSwap--;
             }
-        }.runTaskTimer(MainClass.INSTANCE, 0, 20);
+        }.runTaskTimer(SimpleDeathSwap.INSTANCE, 0, 20);
 
     }
 
@@ -242,12 +242,12 @@ public class Game implements Listener {
                     }
                 }
             }
-        }.runTaskLater(MainClass.INSTANCE, 10);
+        }.runTaskLater(SimpleDeathSwap.INSTANCE, 10);
 
         inGame = false;
 
         owner.getWorld().setGameRule(GameRule.DO_DAYLIGHT_CYCLE, daylight_cicle);
-        MainClass.GAMES.remove(this);
+        SimpleDeathSwap.GAMES.remove(this);
 
         HandlerList.unregisterAll(this);
 

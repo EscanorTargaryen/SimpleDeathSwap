@@ -1,2 +1,2 @@
-# Death Swap
+# Simple Death Swap
  Minigame for Minecraft

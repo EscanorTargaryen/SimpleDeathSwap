@@ -1,4 +1,4 @@
-package it.escanortargaryen.deathswap;
+package it.escanortargaryen.simpledeathswap;
 
 import dev.jorel.commandapi.CommandAPICommand;
 import dev.jorel.commandapi.arguments.PlayerArgument;
@@ -29,7 +29,7 @@ public class RegisterCommands {
 
                     }
 
-                    for (Game g : MainClass.GAMES) {
+                    for (Game g : SimpleDeathSwap.GAMES) {
                         if (g.isInGame()) {
 
                             if (g.containsPlayer(owner)) {
@@ -45,18 +45,18 @@ public class RegisterCommands {
                             }
                         }
 
-                        MainClass.GAMES.add(new Game(owner, target));
+                        SimpleDeathSwap.GAMES.add(new Game(owner, target));
 
                     }
 
-                }).withPermission("deathswap.gamestart");
+                }).withPermission("simpledeathswap.gamestart");
 
         CommandAPICommand disband = new CommandAPICommand("stopgame")
                 .executesPlayer((sender, args) -> {
 
                     Player p = sender;
 
-                    Iterator<Game> game = MainClass.GAMES.iterator();
+                    Iterator<Game> game = SimpleDeathSwap.GAMES.iterator();
 
                     while (game.hasNext()) {
 
@@ -80,12 +80,12 @@ public class RegisterCommands {
                     }
                     p.sendMessage(ChatColor.RED + "You are not in a game");
 
-                }).withPermission("deathswap.stopgame");
+                }).withPermission("simpledeathswap.stopgame");
 
-        new CommandAPICommand("deathswap").withSubcommands(start, disband)
+        new CommandAPICommand("simpledeathswap").withSubcommands(start, disband)
                 .executesPlayer((sender, args) -> {
-                    sender.sendMessage("Usage: /deathswap start <player>");
-                }).withPermission("deathswap")
+                    sender.sendMessage("Usage: /simpledeathswap start <player>");
+                }).withPermission("simpledeathswap")
                 .register();
 
     }

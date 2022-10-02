@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>it.escanortargaryen</groupId>
-    <name>DeathSwap</name>
-    <artifactId>deathswap</artifactId>
+    <name>SimpleDeathSwap</name>
+    <artifactId>simpledeathswap</artifactId>
     <version>1.0</version>
 
     <properties>
@@ -98,7 +98,7 @@
                     <relocations>
                         <relocation>
                             <pattern>dev.jorel.commandapi</pattern>
-                            <shadedPattern>it.escanortargaryen.deathswap.commandapi</shadedPattern>
+                            <shadedPattern>it.escanortargaryen.simpledeathswap.commandapi</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>
