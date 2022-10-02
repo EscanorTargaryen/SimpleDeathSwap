@@ -25,7 +25,7 @@ public class SimpleDeathSwap extends JavaPlugin {
      */
     @Override
     public void onLoad() {
-
+        INSTANCE = this;
         CONFIGMANAGER = new ConfigManager();
 
         CommandAPI.onLoad(new CommandAPIConfig().verboseOutput(true));
@@ -38,7 +38,7 @@ public class SimpleDeathSwap extends JavaPlugin {
     @Override
     public void onEnable() {
         CommandAPI.onEnable(this);
-        INSTANCE = this;
+
 
         new RegisterCommands();
 

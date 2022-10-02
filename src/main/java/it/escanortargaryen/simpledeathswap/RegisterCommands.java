@@ -45,10 +45,8 @@ public class RegisterCommands {
                             }
                         }
 
-                        SimpleDeathSwap.GAMES.add(new Game(owner, target));
-
                     }
-
+                    SimpleDeathSwap.GAMES.add(new Game(owner, target));
                 }).withPermission("simpledeathswap.gamestart");
 
         CommandAPICommand disband = new CommandAPICommand("stopgame")

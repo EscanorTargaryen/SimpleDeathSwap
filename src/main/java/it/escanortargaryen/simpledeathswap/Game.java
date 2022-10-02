@@ -84,6 +84,21 @@ public class Game implements Listener {
         owner.sendMessage(ChatColor.GOLD + "You started a game of SimpleDeathSwap with " + player2.getName());
         player2.sendMessage(ChatColor.GOLD + "You started a game of SimpleDeathSwap with " + this.owner.getName());
 
+        int p1 = timeToSwap % 60;
+        int p3 = (timeToSwap / 60) % 60;
+        String creativePeriod;
+        if (p1 < 10) {
+
+            creativePeriod = p3 + ":0" + p1;
+
+        } else {
+
+            creativePeriod = p3 + ":" + p1;
+        }
+
+        owner.sendMessage(ChatColor.GOLD + "The creative period will start at " + creativePeriod);
+        player2.sendMessage(ChatColor.GOLD + "The creative period will start at " + creativePeriod);
+
         owner.getInventory().clear();
         player2.getInventory().clear();
         owner.getInventory().setArmorContents(null);
@@ -122,10 +137,10 @@ public class Game implements Listener {
 
                 if (timeToSwap == time - 50 - SimpleDeathSwap.CONFIGMANAGER.getCreativeTime()) {
 
-                    owner.sendMessage(ChatColor.GOLD + "You are now in Creative");
-                    player2.sendMessage(ChatColor.GOLD + "You are now in Creative");
-                    owner.setGameMode(GameMode.CREATIVE);
-                    player2.setGameMode(GameMode.CREATIVE);
+                    owner.sendMessage(ChatColor.GOLD + "You are now in Survival");
+                    player2.sendMessage(ChatColor.GOLD + "You are now in Survival");
+                    owner.setGameMode(GameMode.SURVIVAL);
+                    player2.setGameMode(GameMode.SURVIVAL);
                 }
 
                 switch (timeToSwap) {

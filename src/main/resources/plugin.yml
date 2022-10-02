@@ -1,4 +1,4 @@
-main: it.escanortargaryen.simpledeathswap.MainClass
+main: it.escanortargaryen.simpledeathswap.SimpleDeathSwap
 
 name: ${project.name}
 description: A plugin for a game called Death Swap
